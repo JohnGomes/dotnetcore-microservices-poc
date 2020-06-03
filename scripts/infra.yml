@@ -1,10 +1,12 @@
-version: '3'
+version: '3.5'
 
 services:
   eureka:
     build: ../eureka-server
     image: eureka-server
     container_name: eureka-server
+    networks:
+      - poc_default
     ports:
       - 8761:8761
 
@@ -14,6 +16,8 @@ services:
     container_name: postgres
     volumes:
       - /tmp/data/postgresql:/var/lib/postgresql/data
+    networks:
+      - poc_default
     ports:
       - 5432:5432
 
@@ -28,12 +32,16 @@ services:
       memlock:
         soft: -1
         hard: -1
+    networks:
+      - poc_default
     ports:
     - 9200:9200
 
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbit
+    networks:
+      - poc_default
     ports:
       - 15672:15672
       - 5672:5672
@@ -41,3 +49,7 @@ services:
       NAME: rabbitmq
     volumes:
       - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+    
+networks:
+  poc_default:
+    name: poc_default

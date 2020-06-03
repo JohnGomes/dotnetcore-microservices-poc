@@ -31,7 +31,7 @@ namespace PolicyService
             services.AddMediatR();
             services.AddPricingRestClient();
             services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
-            services.AddRabbit();
+            services.AddRabbit(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

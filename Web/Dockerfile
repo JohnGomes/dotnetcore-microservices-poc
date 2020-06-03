@@ -2,6 +2,7 @@ FROM node:lts-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
+RUN npm rebuild node-sass
 RUN npm install
 
 COPY . .

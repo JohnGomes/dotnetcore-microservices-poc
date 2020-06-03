@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
   dotnet-agent-portal-gateway:
@@ -7,7 +7,11 @@ services:
       dockerfile: AgentPortalApiGateway/Dockerfile
     image: dotnet-agent-portal-gateway
     container_name: dotnet-agent-portal-gateway
-    network_mode: host
+    networks:
+      - poc_default
+    #    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
   dotnet-auth-service:
     build: 
@@ -15,7 +19,11 @@ services:
       dockerfile: AuthService/Dockerfile
     image: dotnet-auth-service
     container_name: dotnet-auth-service
-    network_mode: host
+    networks:
+      - poc_default
+    #    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
   
   dotnet-chat-service:
     build: 
@@ -23,7 +31,11 @@ services:
       dockerfile: ChatService/Dockerfile
     image: dotnet-chat-service
     container_name: dotnet-chat-service
-    network_mode: host
+    networks:
+      - poc_default
+    #    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
   dotnet-payment-service:
     build: 
@@ -31,7 +43,11 @@ services:
       dockerfile: PaymentService/Dockerfile
     image: dotnet-payment-service
     container_name: dotnet-payment-service
-    network_mode: host
+    networks:
+      - poc_default
+      #    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
   dotnet-policy-search-service:
     build: 
@@ -39,7 +55,11 @@ services:
       dockerfile: PolicySearchService/Dockerfile
     image: dotnet-policy-search-service
     container_name: dotnet-policy-search-service
-    network_mode: host
+    networks:
+      - poc_default
+    #    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
   dotnet-policy-service:
     build: 
@@ -47,7 +67,14 @@ services:
       dockerfile: PolicyService/Dockerfile
     image: dotnet-policy-service
     container_name: dotnet-policy-service
-    network_mode: host
+    networks:
+      - poc_default
+  #    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
+      ConnectionStrings__DefaultConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
+      ConnectionStrings__RabbitMQ: "rabbit"
+
 
   dotnet-pricing-service:
     build: 
@@ -55,7 +82,11 @@ services:
       dockerfile: PricingService/Dockerfile
     image: dotnet-pricing-service
     container_name: dotnet-pricing-service
-    network_mode: host
+    networks:
+      - poc_default
+    #    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
   dotnet-product-service:
     build: 
@@ -63,10 +94,24 @@ services:
       dockerfile: ProductService/Dockerfile
     image: dotnet-product-service
     container_name: dotnet-product-service
-    network_mode: host
+    networks:
+      - poc_default
+#    network_mode: host
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
   dotnet-web-vue:
     build: ../Web
     image: dotnet-web-vue
     container_name: dotnet-web-vue
-    network_mode: host
+    networks:
+      - poc_default
+    #    network_mode: host
+    ports:
+      - "5222:80"
+    environment:
+      eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
+      
+networks:
+  poc_default:
+    name: poc_default
