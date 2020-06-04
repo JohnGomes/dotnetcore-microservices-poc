@@ -16,6 +16,6 @@ RUN cd $APP_HOME && dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS final
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:6060
+# ENV ASPNETCORE_URLS=http://+:6060
 COPY --from=publish /opt/app/out ./
 ENTRYPOINT ["dotnet", "AuthService.dll"]

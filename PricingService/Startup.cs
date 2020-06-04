@@ -38,6 +38,7 @@ namespace PricingService
             services.AddPricingDemoInitializer();
             services.AddMediatR();
             services.AddLoggingBehavior();
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,8 +53,13 @@ namespace PricingService
 
             app.UseHttpsRedirection();
             app.UseInitializer();
-            app.UseDiscoveryClient();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseDiscoveryClient();            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapControllers();
+                
+            });
         }
     }
 }

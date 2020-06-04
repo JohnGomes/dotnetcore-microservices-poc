@@ -178,3 +178,10 @@ cd scripts
 ## Run specific service
 
 Go to folder with specific service (`PolicyService`, `ProductService` etc) and use `dotnet run` command.
+
+## Miscellaneous
+root url : http://localhost:5222/#/  
+eureka url: http://localhost:8761/  
+docker-compose -f ./scripts/infra.yml up --build  
+docker-compose -f ./scripts/app.yml up --build  
+dkcp -f ./scripts/app.yml up --build dotnet-policy-service  

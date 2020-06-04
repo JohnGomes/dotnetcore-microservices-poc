@@ -28,6 +28,6 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS final
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:5040
+# ENV ASPNETCORE_URLS=http://+:5040
 COPY --from=publish /opt/app/PricingService/out ./
 ENTRYPOINT ["dotnet", "PricingService.dll"]

@@ -19,6 +19,7 @@
             };
         },
         created: function () {
+            HTTP.baseUrl = "http://dotnet-product-service/api/";
             HTTP.get('products').then(response => {
                 this.products = response.data;
             });

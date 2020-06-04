@@ -62,6 +62,7 @@ namespace AuthService
 
             services.AddSingleton<Domain.AuthService>();
             services.AddSingleton<IInsuranceAgents, InsuranceAgentsInMemoryDb>();
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +84,12 @@ namespace AuthService
             app.UseAuthorization();
 
             app.UseHttpsRedirection();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapControllers();
+                
+            });
         }
     }
 }

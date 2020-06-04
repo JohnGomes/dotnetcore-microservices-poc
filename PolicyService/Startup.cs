@@ -32,6 +32,7 @@ namespace PolicyService
             services.AddPricingRestClient();
             services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
             services.AddRabbit(Configuration);
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +47,13 @@ namespace PolicyService
 
             app.UseRouting();
             app.UseHttpsRedirection();
-            app.UseDiscoveryClient();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseDiscoveryClient();            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapControllers();
+                
+            });
         }
     }
 }

@@ -90,6 +90,7 @@ namespace ChatService
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
             
             services.AddRabbitListeners();
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,9 +110,11 @@ namespace ChatService
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapHub<AgentChatHub>("/agentsChat");
             });
 

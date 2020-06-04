@@ -30,6 +30,6 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS final
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:5050
+#ENV ASPNETCORE_URLS=http://+:5050
 COPY --from=publish /opt/app/PolicyService/out ./
 ENTRYPOINT ["dotnet", "PolicyService.dll"]

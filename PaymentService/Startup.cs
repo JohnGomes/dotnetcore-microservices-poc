@@ -45,6 +45,7 @@ namespace PaymentService
             services.AddSingleton<PolicyAccountNumberGenerator>();
             services.AddRabbitListeners();
             services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,8 +61,13 @@ namespace PaymentService
             app.UseHttpsRedirection();
             app.UseInitializer();
             app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated), typeof(PolicyTerminated) });
-            app.UseBackgroundJobs();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseBackgroundJobs();            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapControllers();
+                
+            });
         }
     }
 }

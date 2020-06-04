@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,7 @@ namespace ProductService
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddMediatR();
             services.AddProductDemoInitializer();
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +51,12 @@ namespace ProductService
             app.UseHttpsRedirection();
             app.UseInitializer();
             app.UseDiscoveryClient();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapControllers();
+                
+            });
         }
         
         private void JsonOptions(MvcNewtonsoftJsonOptions options)

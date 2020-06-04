@@ -10,6 +10,8 @@ services:
     networks:
       - poc_default
     #    network_mode: host
+    ports:
+      - "8099:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
@@ -22,6 +24,8 @@ services:
     networks:
       - poc_default
     #    network_mode: host
+    ports:
+      - "6060:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
   
@@ -34,6 +38,8 @@ services:
     networks:
       - poc_default
     #    network_mode: host
+    ports:
+      - "4099:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
@@ -46,6 +52,8 @@ services:
     networks:
       - poc_default
       #    network_mode: host
+    ports:
+      - "5070:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
@@ -58,6 +66,8 @@ services:
     networks:
       - poc_default
     #    network_mode: host
+    ports:
+      - "5060:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
@@ -70,6 +80,8 @@ services:
     networks:
       - poc_default
   #    network_mode: host
+    ports:
+      - "5050:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
       ConnectionStrings__DefaultConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
@@ -85,6 +97,8 @@ services:
     networks:
       - poc_default
     #    network_mode: host
+    ports:
+      - "5040:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 
@@ -97,6 +111,8 @@ services:
     networks:
       - poc_default
 #    network_mode: host
+    ports:
+      - "5030:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
 

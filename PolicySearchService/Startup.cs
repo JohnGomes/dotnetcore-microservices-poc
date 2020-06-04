@@ -33,6 +33,7 @@ namespace PolicySearchService
             services.AddMediatR();
             services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
             services.AddRabbitListeners();
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,8 +51,13 @@ namespace PolicySearchService
 
             app.UseHttpsRedirection();
             app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated) });
-            app.UseDiscoveryClient();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseDiscoveryClient();            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapControllers();
+                
+            });
         }
     }
 }

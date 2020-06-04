@@ -20,6 +20,6 @@ RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS final
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:4099
+#ENV ASPNETCORE_URLS=http://+:4099
 COPY --from=publish /opt/app/ChatService/out ./
 ENTRYPOINT ["dotnet", "ChatService.dll"]
