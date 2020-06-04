@@ -70,6 +70,11 @@ services:
       - "5060:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
+      eureka__client__shouldRegisterWithEureka: "true"
+      eureka__client__ValidateCertificates: "false"
+      eureka__instance__appName: "PolicySearchService"
+      eureka__instance__port: "5060"
+      eureka__instance__hostName: "dotnet-policy-search-service"
 
   dotnet-policy-service:
     build: 
@@ -115,6 +120,11 @@ services:
       - "5030:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
+      eureka__client__shouldRegisterWithEureka: "true"
+      eureka__client__ValidateCertificates: "false"
+      eureka__instance__appName: "ProductService"
+      eureka__instance__port: "5030"
+      eureka__instance__hostName: "dotnet-product-service"
 
   dotnet-web-vue:
     build: ../Web
@@ -127,6 +137,10 @@ services:
       - "5222:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
+      VUE_APP_BACKEND_URL: "http://dotnet-agent-portal-gateway:8099/api/"
+      VUE_APP_AUTH_URL: "http://dotnet-auth-service:6060/api/"
+      VUE_APP_BOT_URL: "https://webchat.botframework.com/embed/YOUR_BOT_NAME?s=YOUR_SECRET_KEY"
+      VUE_APP_CHAT_URL: "http://dotnet-chat-service:4099"
       
 networks:
   poc_default:
