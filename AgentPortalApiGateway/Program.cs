@@ -58,6 +58,7 @@ namespace AgentPortalApiGateway
 
                     });
                     s.AddOcelot().AddEureka().AddCacheManager(x => x.WithDictionaryHandle());
+                    s.AddHealthChecks();
                 })
                 .Configure(a =>
                 {
@@ -73,7 +74,13 @@ namespace AgentPortalApiGateway
                         .AllowAnyHeader()
                         .AllowCredentials()
                     );
-                    a.UseOcelot().Wait(); 
+                    a.UseOcelot().Wait();
+                    a.UseRouting();
+                    a.UseEndpoints(endpoints =>
+                    {
+                        endpoints.MapHealthChecks("/health");
+                
+                    });
                     
                 })
                 .Build();

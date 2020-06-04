@@ -96,7 +96,7 @@ namespace PolicyService.Messaging.RabbitMq.Outbox
 
         public void LogPending(IEnumerable<Message> messages)
         {
-            logger.LogInformation($"{messages.Count()} messages about to be pushed.");
+            // logger.LogInformation($"{messages.Count()} messages about to be pushed.");
         }
 
         public void LogSuccessPush()
