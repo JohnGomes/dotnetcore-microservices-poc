@@ -60,6 +60,10 @@ services:
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
       ConnectionStrings__RabbitMQ: "rabbit"
+      ConnectionStrings__DefaultConnection: "THIS IS A SECRET"
+      ConnectionStrings__PgConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
+      BackgroundJobs__HangfireConnectionStringName: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
+      BackgroundJobs__InPaymentFileFolder: "/mnt/bigdisk/dotnetpoc/testcases"
 
   dotnet-policy-search-service:
     build: 
@@ -102,6 +106,7 @@ services:
       eureka__instance__hostName: "dotnet-policy-service"
       ConnectionStrings__DefaultConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
       ConnectionStrings__RabbitMQ: "rabbit"
+      PricingServiceUri: "http://PricingService/api/pricing"
 
 
   dotnet-pricing-service:
@@ -122,6 +127,7 @@ services:
       eureka__instance__appName: "PricingService"
       eureka__instance__port: "80"
       eureka__instance__hostName: "dotnet-pricing-service"
+      ConnectionStrings__DefaultConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
 
   dotnet-product-service:
     build: 

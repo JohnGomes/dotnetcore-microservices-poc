@@ -11,16 +11,16 @@ RUN cd $APP_HOME/PricingService && dotnet restore
 COPY PricingService.Api $APP_HOME/PricingService.Api/
 COPY PricingService $APP_HOME/PricingService/
 RUN cd $APP_HOME/PricingService && dotnet build
+#
+#COPY PricingService.Test/*.csproj $APP_HOME/PricingService.Test/
+#RUN cd $APP_HOME/PricingService.Test && dotnet restore
+#
+#COPY PricingService.Test $APP_HOME/PricingService.Test/
+#RUN cd $APP_HOME/PricingService.Test && dotnet build
 
-COPY PricingService.Test/*.csproj $APP_HOME/PricingService.Test/
-RUN cd $APP_HOME/PricingService.Test && dotnet restore
-
-COPY PricingService.Test $APP_HOME/PricingService.Test/
-RUN cd $APP_HOME/PricingService.Test && dotnet build
-
-FROM build AS test
-WORKDIR $APP_HOME/PricingService.Test
-RUN dotnet test --verbosity:normal
+#FROM build AS test
+#WORKDIR $APP_HOME/PricingService.Test
+#RUN dotnet test --verbosity:normal
 
 FROM build AS publish
 WORKDIR $APP_HOME/PricingService

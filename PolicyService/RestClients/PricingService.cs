@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace PolicyService.RestClients
 {
@@ -17,8 +19,9 @@ namespace PolicyService.RestClients
             this.pricingClient = pricingClient;
         }
 
-        public async Task<Price> CalculatePrice(PricingParams pricingParams)
+        public async Task<Price> CalculatePrice(PricingParams pricingParamsObject)
         {
+            var pricingParams = pricingParamsObject;//.ToObject<PricingParams>();
             var cmd = new CalculatePriceCommand
             {
                 ProductCode = pricingParams.ProductCode,

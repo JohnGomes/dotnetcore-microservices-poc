@@ -5,6 +5,8 @@ using RestEase;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Steeltoe.Common.Discovery;
 
 namespace PolicyService.RestClients
@@ -23,9 +25,12 @@ namespace PolicyService.RestClients
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(retryCount: 3, sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(3));
 
-        public PricingClient(IConfiguration configuration, IDiscoveryClient discoveryClient)
+        private ILogger<PricingClient> _logger;
+
+        public PricingClient(IConfiguration configuration, IDiscoveryClient discoveryClient, ILogger<PricingClient> logger)
         {
             var handler = new DiscoveryHttpClientHandler(discoveryClient);
+            _logger = logger;
             var httpClient = new HttpClient(handler, false)
             {
                 BaseAddress = new Uri(configuration.GetValue<string>("PricingServiceUri"))

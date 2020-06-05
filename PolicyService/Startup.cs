@@ -25,9 +25,8 @@ namespace PolicyService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDiscoveryClient(Configuration);
-            services.AddMvc()
-                .AddNewtonsoftJson()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc().AddNewtonsoftJson();
+                // .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddMediatR();
             services.AddPricingRestClient();
             services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
