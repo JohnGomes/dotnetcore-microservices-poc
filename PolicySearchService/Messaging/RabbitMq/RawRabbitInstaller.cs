@@ -7,12 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace PolicySearchService.Messaging.RabbitMq
 {
     public static class RawRabbitInstaller
     {
-        public static IServiceCollection AddRabbitListeners(this IServiceCollection services)
+        public static IServiceCollection AddRabbitListeners(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddRawRabbit(new RawRabbitOptions
             {
@@ -22,7 +23,7 @@ namespace PolicySearchService.Messaging.RabbitMq
                     Password = "guest",
                     VirtualHost = "/",
                     Port = 5672,
-                    Hostnames = new List<string> { "localhost" },
+                    Hostnames = new List<string> {configuration["ConnectionStrings:RabbitMQ"]},
                     RequestTimeout = TimeSpan.FromSeconds(10),
                     PublishConfirmTimeout = TimeSpan.FromSeconds(1),
                     RecoveryInterval = TimeSpan.FromSeconds(1),

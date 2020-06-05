@@ -43,7 +43,7 @@ namespace PaymentService
             services.AddMediatR();
             services.AddLogingBehaviour();
             services.AddSingleton<PolicyAccountNumberGenerator>();
-            services.AddRabbitListeners();
+            services.AddRabbitListeners(Configuration);
             services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
             services.AddHealthChecks();
         }

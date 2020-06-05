@@ -12,8 +12,6 @@ namespace PolicyService.Messaging.RabbitMq
     {
         public static IServiceCollection AddRabbit(this IServiceCollection services, IConfiguration configuration)
         {
-            
-            Console.WriteLine("@@@@@@@@@@@@@@@@@@ "+configuration["ConnectionStrings:RabbitMQ"]);
             services.AddRawRabbit(new RawRabbitOptions
             {
                 ClientConfiguration = new RawRabbit.Configuration.RawRabbitConfiguration

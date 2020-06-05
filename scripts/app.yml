@@ -44,6 +44,7 @@ services:
       - "4099:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
+      ConnectionStrings__RabbitMQ: "rabbit"
 
   dotnet-payment-service:
     build: 
@@ -58,6 +59,7 @@ services:
       - "5070:80"
     environment:
       eureka__client__serviceUrl: "http://eureka-server:8761/eureka"
+      ConnectionStrings__RabbitMQ: "rabbit"
 
   dotnet-policy-search-service:
     build: 
@@ -77,6 +79,8 @@ services:
       eureka__instance__appName: "PolicySearchService"
       eureka__instance__port: "80"
       eureka__instance__hostName: "dotnet-policy-search-service"
+      ConnectionStrings__ElasticSearchConnection: "http://elasticsearch:9200"
+      ConnectionStrings__RabbitMQ: "rabbit"
 
   dotnet-policy-service:
     build: 

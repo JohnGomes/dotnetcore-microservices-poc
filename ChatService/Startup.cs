@@ -89,7 +89,7 @@ namespace ChatService
             
             services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
             
-            services.AddRabbitListeners();
+            services.AddRabbitListeners(Configuration);
             services.AddHealthChecks();
         }
 

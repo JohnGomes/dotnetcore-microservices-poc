@@ -32,7 +32,7 @@ namespace PolicySearchService
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddMediatR();
             services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
-            services.AddRabbitListeners();
+            services.AddRabbitListeners(Configuration);
             services.AddHealthChecks();
         }
 
