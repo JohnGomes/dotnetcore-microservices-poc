@@ -2,6 +2,7 @@ using Hangfire;
 using Hangfire.Logging.LogProviders;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace PaymentService.Jobs
@@ -10,12 +11,13 @@ namespace PaymentService.Jobs
     {
         public static IServiceCollection AddBackgroundJobs(
             this IServiceCollection services, 
-            BackgroundJobsConfig jobsConfig)
+            BackgroundJobsConfig jobsConfig,
+            IConfiguration configuration)
         {
-            services.AddSingleton(jobsConfig);
+             services.AddSingleton(jobsConfig);
             services.AddHangfire(config =>
             {
-                config.UsePostgreSqlStorage(jobsConfig.HangfireConnectionStringName);
+                config.UsePostgreSqlStorage(configuration["BackgroundJobs:HangfireConnectionStringName"]);
                 config.UseLogProvider(new ColouredConsoleLogProvider());
             });
             services.AddScoped<InPaymentRegistrationJob, InPaymentRegistrationJob>();

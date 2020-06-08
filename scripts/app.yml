@@ -62,7 +62,7 @@ services:
       ConnectionStrings__RabbitMQ: "rabbit"
       ConnectionStrings__DefaultConnection: "THIS IS A SECRET"
       ConnectionStrings__PgConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
-      BackgroundJobs__HangfireConnectionStringName: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=postgres;Port=5432"
+      BackgroundJobs__HangfireConnectionStringName: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_jobs;Host=postgres;Port=5432"
       BackgroundJobs__InPaymentFileFolder: "/mnt/bigdisk/dotnetpoc/testcases"
 
   dotnet-policy-search-service:

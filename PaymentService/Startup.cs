@@ -38,13 +38,13 @@ namespace PaymentService
                     opt.SerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto;
                 });
 
-            services.AddMarten(Configuration.GetConnectionString("PgConnection"));
+            services.AddMarten(Configuration["ConnectionStrings:PgConnection"]);
             services.AddPaymentDemoInitializer();
             services.AddMediatR();
             services.AddLogingBehaviour();
             services.AddSingleton<PolicyAccountNumberGenerator>();
             services.AddRabbitListeners(Configuration);
-            services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
+            services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>(),Configuration);
             services.AddHealthChecks();
         }
 

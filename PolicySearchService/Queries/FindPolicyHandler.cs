@@ -4,8 +4,10 @@ using PolicySearchService.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PolicySearchService.Queries
 {
@@ -20,6 +22,8 @@ namespace PolicySearchService.Queries
 
         public async Task<FindPolicyResult> Handle(FindPolicyQuery request, CancellationToken cancellationToken)
         {
+            Console.WriteLine($"@@@@@@@@@@@@@@@@@@@@@@@ Handle Policy Query {JsonConvert.SerializeObject(request)}");
+   
             var searchResults = await policis.Find(request.QueryText);
 
             return FindPolicyResult(searchResults);

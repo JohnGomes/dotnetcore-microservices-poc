@@ -20,8 +20,12 @@ namespace PolicySearchService.DataAccess.ElasticSearch
         private static ElasticClient CreateElasticClient(string cnString)
         {
             var settings = new ConnectionSettings(new Uri(cnString))
-                .DefaultIndex("lab_policies");
+                .DefaultIndex("lab_policies")
+                .EnableDebugMode()
+                .PrettyJson()
+                .DisableDirectStreaming();
             var client = new ElasticClient(settings);
+            client.CreateIndex("lab_policies");
             return client;
         }
     }

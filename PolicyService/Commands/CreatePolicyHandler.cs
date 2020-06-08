@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Newtonsoft.Json;
 using PolicyService.Api.Commands;
 using PolicyService.Api.Events;
 using PolicyService.Domain;
@@ -42,6 +44,8 @@ namespace PolicyService.Commands
             var policy = offer.Buy(customer);
 
             uow.Policies.Add(policy);
+            
+            Console.WriteLine($"@@@@@@@@@@@@@@@@ Policy Created {JsonConvert.SerializeObject(policy)}");
 
             await eventPublisher.PublishMessage(PolicyCreated(policy)); 
             

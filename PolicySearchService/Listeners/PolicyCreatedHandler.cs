@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using PolicySearchService.Domain;
 using PolicyService.Api.Events;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PolicySearchService.Listeners
 {
@@ -17,6 +19,8 @@ namespace PolicySearchService.Listeners
 
         public async Task Handle(PolicyCreated notification, CancellationToken cancellationToken)
         {
+
+            Console.WriteLine($"@@@@@@@@@@@@@@@ ADD New Policy {JsonConvert.SerializeObject(notification)}");
             await policis.Add(new Policy
             {
                 PolicyNumber = notification.PolicyNumber,

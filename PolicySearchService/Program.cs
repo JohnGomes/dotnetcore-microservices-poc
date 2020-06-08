@@ -27,6 +27,7 @@ namespace PolicySearchService
                 .Build();
 
             return WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging(l=> l.AddConsole())
                 .UseConfiguration(config)
                 .UseStartup<Startup>();
         }

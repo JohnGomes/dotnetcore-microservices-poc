@@ -8,3 +8,5 @@
 - ✓ Fix Auth
 - Add Swagger
 - Add Spinner
+- Add/Replace with React Frontend
+- Add Kibana

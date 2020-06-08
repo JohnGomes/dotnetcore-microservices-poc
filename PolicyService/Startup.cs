@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using PolicyService.DataAccess.NHibernate;
 using PolicyService.Messaging.RabbitMq;
 using PolicyService.RestClients;
@@ -32,6 +33,11 @@ namespace PolicyService
             services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
             services.AddRabbit(Configuration);
             services.AddHealthChecks();
+            
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
